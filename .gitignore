@@ -1,0 +1,19 @@
+# Large data files - too big for GitHub, downloaded separately
+*.csv
+*.zip
+*.shp
+*.shx
+*.dbf
+*.sbn
+*.sbx
+*.prj
+*.shp.xml
+
+# But keep small important files
+!exclusion_log.csv
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/s
