@@ -1,0 +1,7 @@
+reason,count
+dropoff <= pickup time,6294
+trip_distance <= 0,54770
+fare_amount <= 0,9557
+passenger_count out of range (<=0 or >6),117438
+pickup date outside January 2019,537
+trip duration > 24 hours,5
