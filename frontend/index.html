@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Urban Mobility Data Explorer</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <header class="app-header">
+    <h1>Urban Mobility Data Explorer</h1>
+    <p class="subtitle">NYC Taxi Trip Patterns — Pickup Zones, Boroughs &amp; Fares</p>
+  </header>
+
+  <main class="dashboard">
+
+   
+    <section class="filters-panel" id="filters-panel">
+      <h2>Filters</h2>
+      <div id="filter-controls">
+        
+      </div>
+      <p class="filter-note">
+        Note: backend endpoints don't accept filter params yet — dropdowns
+        will re-fetch the same unfiltered data until /trips/* routes
+        support query params.
+      </p>
+    </section>
+
+    <section class="charts-grid">
+
+      <div class="chart-card">
+        <h2>Top Pickup Zones</h2>
+        <canvas id="topZonesChart"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <h2>Trips by Borough</h2>
+        <canvas id="boroughPieChart"></canvas>
+      </div>
+
+      
+      <div class="chart-card">
+        <h2>Trips by Time of Day</h2>
+        <canvas id="fareByTimeChart"></canvas>
+      </div>
+
+    </section>
+
+    <section class="status-panel" id="status-panel">
+      <p id="status-message">Loading data…</p>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>Urban Mobility Data Explorer — NYC TLC Trip Data</p>
+  </footer>
+
+  <script src="charts.js"></script>
+  <script src="filters.js"></script>
+</body>
+</html>
