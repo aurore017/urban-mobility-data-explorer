@@ -95,3 +95,23 @@ def trips_by_borough():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+# Endpoint 5: Average fare by time of day
+@app.route('/trips/average-fare-by-time', methods=['GET'])
+def average_fare_by_time():
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT tf.time_of_day, ROUND(AVG(t.fare_amount)::numeric, 2) as avg_fare
+        FROM trips t
+        JOIN trip_features tf ON t.trip_id = tf.trip_id
+        GROUP BY tf.time_of_day
+        ORDER BY avg_fare DESC
+    """)
+    rows = cur.fetchall()
+    cur.close()
+    conn.close()
+    return jsonify([
+        {"time_of_day": row[0], "avg_fare": float(row[1])}
+        for row in rows
+    ])
