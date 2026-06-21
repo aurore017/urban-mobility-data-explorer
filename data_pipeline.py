@@ -3,7 +3,7 @@ import numpy as np
 import geopandas as gpd
 
 # ── Load Data ──────────────────────────────────────────
-trips = pd.read_csv('yellow_tripdata_2019-01.csv')
+trips = pd.read_csv('yellow_tripdata_small.csv')
 zones = pd.read_csv('taxi_zone_lookup.csv')
 geo_zones = gpd.read_file('taxi_zones.shp')
 
