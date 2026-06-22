@@ -1,8 +1,8 @@
+let timeOfDayChartInstance = null;
+
 async function loadBoroughFilter() {
   const data = await window.UMDE.fetchJSON(`${window.UMDE.API_BASE_URL}/trips/by-borough`);
-
   const select = document.getElementById('borough-filter');
-
   data.forEach(row => {
     const option = document.createElement('option');
     option.value = row.borough;
@@ -13,27 +13,23 @@ async function loadBoroughFilter() {
 
 async function loadTimeOfDayFilter() {
   const data = await window.UMDE.fetchJSON(`${window.UMDE.API_BASE_URL}/trips/by-time`);
-
   const select = document.getElementById('time-of-day-filter');
-
   data.forEach(row => {
     const option = document.createElement('option');
     option.value = row.time_of_day;
     option.textContent = row.time_of_day;
     select.appendChild(option);
   });
-
   renderTimeOfDayChart(data);
 }
 
 function renderTimeOfDayChart(data) {
   const ctx = document.getElementById("fareByTimeChart");
   if (!ctx) return;
-
   const labels = data.map(d => d.time_of_day);
   const counts = data.map(d => d.trip_count);
-
-  new Chart(ctx, {
+  if (timeOfDayChartInstance) timeOfDayChartInstance.destroy();
+  timeOfDayChartInstance = new Chart(ctx, {
     type: "bar",
     data: {
       labels,
@@ -47,9 +43,7 @@ function renderTimeOfDayChart(data) {
     },
     options: {
       responsive: true,
-      plugins: {
-        legend: { display: false }
-      },
+      plugins: { legend: { display: false } },
       scales: {
         y: {
           beginAtZero: true,
@@ -63,4 +57,11 @@ function renderTimeOfDayChart(data) {
 document.addEventListener("DOMContentLoaded", async () => {
   await loadBoroughFilter();
   await loadTimeOfDayFilter();
+
+  document.getElementById('borough-filter').addEventListener('change', async (e) => {
+    const borough = e.target.value;
+    console.log('Borough selected:', borough);
+    await loadTopZones(borough);
+    console.log('Chart updated');
+  });
 });
