@@ -275,7 +275,7 @@ A custom ranking algorithm (`backend/ranking_algorithm.py`) is implemented witho
 
 ## Video Walkthrough
 
-[Link to be added before submission]
+https://drive.google.com/file/d/1goC1anDmQgST2XYy0JG9cniR1pn4q19W/view
 
 ---
 
@@ -288,3 +288,7 @@ See `docs/architecture_diagram.png` for the full system diagram.
 - **Backend:** Python, Flask, flask-cors
 - **Database:** PostgreSQL with psycopg2
 - **Data pipeline:** pandas, geopandas, pyarrow
+
+---
+## Task sheet
+- https://docs.google.com/spreadsheets/d/1UJLBlbnY9iwSiedTRyC7M4nPIqvCy_pspCL9nxR0yGg/edit?gid=0#gid=0
