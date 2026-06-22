@@ -39,7 +39,6 @@ urban-mobility-data-explorer/
 ├── docs/
 │   └── architecture_diagram.png
 ├── data_pipeline.py            # Cleans raw CSV → cleaned_tripdata.csv
-├── feature_engineering.py      # Derives trip features (time of day, etc.)
 ├── exclusion_log.csv           # Log of records excluded during cleaning
 ├── .gitignore
 └── README.md
