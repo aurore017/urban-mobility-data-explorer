@@ -1,19 +1,7 @@
-// Step 1: Fetch boroughs and build the dropdown
 async function loadBoroughFilter() {
-  const data = [
-  { borough: "Manhattan", trip_count: 5000 },
-  { borough: "Brooklyn", trip_count: 3000 },
-  { borough: "Queens", trip_count: 1500 }
-];
+  const data = await window.UMDE.fetchJSON(`${window.UMDE.API_BASE_URL}/trips/by-borough`);
 
-  // data looks like: [{ borough: "Manhattan", trip_count: 12345 }, ...]
-  const select = document.createElement('select');
-  select.id = 'borough-filter';
-
-  const defaultOption = document.createElement('option');
-  defaultOption.value = '';
-  defaultOption.textContent = 'All Boroughs';
-  select.appendChild(defaultOption);
+  const select = document.getElementById('borough-filter');
 
   data.forEach(row => {
     const option = document.createElement('option');
@@ -21,29 +9,12 @@ async function loadBoroughFilter() {
     option.textContent = row.borough;
     select.appendChild(option);
   });
-
-  document.getElementById('filter-controls').appendChild(select);
 }
 
-loadBoroughFilter();
-
-// Step 2: Fetch time-of-day options and build the dropdown
 async function loadTimeOfDayFilter() {
-  // Mock data for now — matches what /trips/by-time will eventually return
-  const data = [
-    { time_of_day: "morning", trip_count: 4000 },
-    { time_of_day: "afternoon", trip_count: 3500 },
-    { time_of_day: "evening", trip_count: 5000 },
-    { time_of_day: "night", trip_count: 1200 }
-  ];
+  const data = await window.UMDE.fetchJSON(`${window.UMDE.API_BASE_URL}/trips/by-time`);
 
-  const select = document.createElement('select');
-  select.id = 'time-of-day-filter';
-
-  const defaultOption = document.createElement('option');
-  defaultOption.value = '';
-  defaultOption.textContent = 'All Times of Day';
-  select.appendChild(defaultOption);
+  const select = document.getElementById('time-of-day-filter');
 
   data.forEach(row => {
     const option = document.createElement('option');
@@ -52,7 +23,44 @@ async function loadTimeOfDayFilter() {
     select.appendChild(option);
   });
 
-  document.getElementById('filter-controls').appendChild(select);
+  renderTimeOfDayChart(data);
 }
 
-loadTimeOfDayFilter();
+function renderTimeOfDayChart(data) {
+  const ctx = document.getElementById("fareByTimeChart");
+  if (!ctx) return;
+
+  const labels = data.map(d => d.time_of_day);
+  const counts = data.map(d => d.trip_count);
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [{
+        label: "Trips by Time of Day",
+        data: counts,
+        backgroundColor: "rgba(255, 159, 64, 0.7)",
+        borderColor: "rgba(255, 159, 64, 1)",
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: "Number of Trips" }
+        }
+      }
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadBoroughFilter();
+  await loadTimeOfDayFilter();
+});
