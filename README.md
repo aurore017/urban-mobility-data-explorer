@@ -13,7 +13,7 @@ A fullstack web application for exploring NYC Taxi & Limousine Commission (TLC) 
 |Nziza|@nziza21| Backend|
 |Lorris| @LorrisHira| Database|
 | Bruce | @bmanzi-glitch | Frontend — Dashboard layout, bar chart, pie chart |
-| Huguette | | Frontend — Filters, time-of-day chart |
+| Huguette | uhuguette | Frontend — Filters, time-of-day chart |
 
 ---
 
