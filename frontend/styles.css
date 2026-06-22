@@ -299,3 +299,28 @@ body {
     animation: none;
   }
 }
+
+#filter-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+#filter-controls select {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background-color: #1e2530;
+  color: #f0f0f0;
+  cursor: pointer;
+}
+
+#filter-controls select:hover {
+  border-color: #888;
+}
+
+#filter-controls select:focus {
+  outline: none;
+  border-color: #4ade80;
+}
